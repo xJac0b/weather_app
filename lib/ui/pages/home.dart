@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/business_logic/cubits/theme/theme_cubit.dart';
+import 'package:weather_app/logic/cubits/theme/theme_cubit.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,9 +15,17 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            const TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter a city name',
+              ),
+            ),
+            ElevatedButton(
+                onPressed: () {}, child: const Text("Check weather")),
             ElevatedButton(
                 onPressed: BlocProvider.of<ThemeCubit>(context).updateAppTheme,
-                child: const Text("Change Theme"))
+                child: const Text("Switch Theme"))
           ],
         ),
       ),

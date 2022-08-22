@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/ui/constants/theme.dart';
 import 'package:weather_app/ui/pages/home.dart';
 
-import 'business_logic/cubits/theme/theme_cubit.dart';
+import 'logic/cubits/theme/theme_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return MaterialApp(
-              title: 'Flutter Demo',
+              title: 'Weather Better',
               theme: appThemeData[AppTheme.light],
               darkTheme: appThemeData[AppTheme.dark],
               themeMode: state.themeMode,
