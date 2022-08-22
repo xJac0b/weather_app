@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 class Weather {
-  double temp;
-  Weather(this.temp);
-  factory Weather.fromJson(json) => Weather(jsonDecode(json)['main']['temp']);
+  int temp;
+  String name;
+  Weather(this.temp, this.name);
+  factory Weather.fromJson(json, name) => Weather(
+      (jsonDecode(json)['main']['temp'] - 273.15).round(),
+      name[0].toUpperCase() + name.substring(1).toLowerCase());
 }

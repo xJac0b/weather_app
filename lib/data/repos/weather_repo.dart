@@ -5,7 +5,7 @@ class WeatherRepository {
   final WeatherAPI api = WeatherAPI();
   Future<Weather> getWeatherByCityName(String name) async {
     final String rawWeather = await api.getRawWeather(name);
-    final Weather weather = Weather.fromJson(rawWeather);
+    final Weather weather = Weather.fromJson(rawWeather, name);
     return weather;
   }
 }
