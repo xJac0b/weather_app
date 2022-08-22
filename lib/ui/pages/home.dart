@@ -1,32 +1,82 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/logic/cubits/theme/theme_cubit.dart';
+import 'package:weather_app/data/models/weather.dart';
+import 'package:weather_app/logic/blocs/weather/weather_bloc.dart';
+import 'package:weather_app/ui/widgets/app_bar.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final cityController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Weather Better'),
-      ),
+      appBar: appBar,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter a city name',
-              ),
-            ),
-            ElevatedButton(
-                onPressed: () {}, child: const Text("Check weather")),
-            ElevatedButton(
-                onPressed: BlocProvider.of<ThemeCubit>(context).updateAppTheme,
-                child: const Text("Switch Theme"))
-          ],
+        child: BlocProvider(
+          create: (context) => WeatherBloc(),
+          child: BlocBuilder<WeatherBloc, WeatherState>(
+            builder: (context, state) {
+              switch (state.runtimeType) {
+                case WeatherInitial:
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      TextField(
+                        controller: cityController,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter a city name',
+                        ),
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            context
+                                .read<WeatherBloc>()
+                                .add(GetWeather(cityController.text));
+                          },
+                          child: const Text("Check weather")),
+                    ],
+                  );
+                case WeatherLoading:
+                  return const CircularProgressIndicator();
+                case WeatherLoaded:
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      TextField(
+                        controller: cityController,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter a city name',
+                        ),
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            context
+                                .read<WeatherBloc>()
+                                .add(GetWeather(cityController.text));
+                          },
+                          child: const Text("Check weather")),
+                      Text('${state.temp}')
+                    ],
+                  );
+                default:
+                  return Text('default');
+              }
+            },
+          ),
         ),
       ),
     );
