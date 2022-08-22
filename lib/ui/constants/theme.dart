@@ -5,9 +5,7 @@ enum AppTheme { light, dark }
 
 Map<AppTheme, ThemeData> appThemeData = {
   AppTheme.light: ThemeData(
-      colorScheme: const ColorScheme.light().copyWith(
-          primary: AppColors.primaryLight, secondary: AppColors.accent)),
+      colorSchemeSeed: AppColors.seedColor, brightness: Brightness.light),
   AppTheme.dark: ThemeData(
-      colorScheme: const ColorScheme.dark().copyWith(
-          primary: AppColors.primaryLight, secondary: AppColors.accent)),
+      colorSchemeSeed: AppColors.seedColor, brightness: Brightness.dark),
 };
