@@ -74,6 +74,7 @@ class _HomeState extends State<Home> {
                                   .add(GetWeather(cityController.text));
                             },
                             child: const Text("Check weather")),
+                        Forecast5Days(forecast: state.forecast)
                       ],
                     ),
                   );

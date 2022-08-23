@@ -5,7 +5,7 @@ import 'package:weather_app/data/models/weather.dart';
 import 'package:weather_app/ui/constants/colors.dart';
 
 class CityWeather extends StatelessWidget {
-  final Forecast? weather;
+  final Weather? weather;
 
   const CityWeather({Key? key, required this.weather}) : super(key: key);
 
@@ -29,10 +29,9 @@ class CityWeather extends StatelessWidget {
   }
 }
 
-class CityWeather5Days extends StatelessWidget {
-  final List forecastList;
-  const CityWeather5Days({Key? key, required this.forecastList})
-      : super(key: key);
+class Forecast5Days extends StatelessWidget {
+  final Forecast? forecast;
+  const Forecast5Days({Key? key, required this.forecast}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +41,22 @@ class CityWeather5Days extends StatelessWidget {
           enableInfiniteScroll: false,
           autoPlay: false,
         ),
-        items: forecastList.map());
+        items: _generateWeatherCards(forecast!.forecast));
+  }
+
+  List<Widget> _generateWeatherCards(List<Weather> list) {
+    List<ClipRRect> widgets = [];
+    for (Weather weather in list) {
+      widgets.add(ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Stack(fit: StackFit.expand, children: [
+            Container(
+                width: 500,
+                height: 350,
+                color: Color.fromARGB(61, 0, 0, 0),
+                child: Text('${weather.temp}'))
+          ])));
+    }
+    return widgets;
   }
 }
