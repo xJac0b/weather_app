@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/logic/cubits/theme/theme_cubit.dart';
 
 AppBar appBar = AppBar(
+  centerTitle: true,
   actions: <Widget>[
     BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) => IconButton(

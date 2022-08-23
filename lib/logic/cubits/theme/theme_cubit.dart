@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
-import 'package:weather_app/ui/constants/theme.dart';
 
 part 'theme_state.dart';
 

@@ -10,9 +10,13 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc() : super(WeatherInitial()) {
     on<GetWeather>((event, emit) async {
       emit(WeatherLoading());
-      final WeatherRepository repo = WeatherRepository();
-      final Weather weather = await repo.getWeatherByCityName(event.city);
-      emit(WeatherLoaded(temp: weather.temp, name: weather.name));
+      try {
+        final WeatherRepository repo = WeatherRepository();
+        final Forecast weather = await repo.getWeatherByCityName(event.city);
+        emit(WeatherLoaded(weather: weather));
+      } catch (e) {
+        emit(const WeatherInitial(error: "City not found!"));
+      }
     });
   }
 }

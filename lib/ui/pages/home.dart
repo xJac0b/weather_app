@@ -6,7 +6,7 @@ import 'package:weather_app/ui/widgets/app_bar.dart';
 import 'package:weather_app/ui/widgets/city_weather.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -48,6 +48,7 @@ class _HomeState extends State<Home> {
                                 .add(GetWeather(cityController.text));
                           },
                           child: const Text("Check weather")),
+                      Text(state.error ?? '')
                     ],
                   );
                 case WeatherLoading:
@@ -57,9 +58,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: <Widget>[
-                        CityWeather(
-                            temp: state.temp ?? 0,
-                            name: state.name ?? "Unknown"),
+                        CityWeather(weather: state.weather),
                         const SizedBox(height: 8.0),
                         TextField(
                           controller: cityController,
@@ -79,7 +78,7 @@ class _HomeState extends State<Home> {
                     ),
                   );
                 default:
-                  return Text('default');
+                  return const Text('default');
               }
             },
           ),

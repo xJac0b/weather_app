@@ -3,9 +3,10 @@ import 'package:weather_app/data/models/weather.dart';
 
 class WeatherRepository {
   final WeatherAPI api = WeatherAPI();
-  Future<Weather> getWeatherByCityName(String name) async {
+  Future<Forecast> getWeatherByCityName(String name) async {
     final String rawWeather = await api.getRawWeather(name);
-    final Weather weather = Weather.fromJson(rawWeather, name);
+    print(rawWeather);
+    final Forecast weather = Forecast.fromJson(rawWeather);
     return weather;
   }
 }
