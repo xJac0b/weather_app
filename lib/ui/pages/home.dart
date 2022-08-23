@@ -75,9 +75,8 @@ class _HomeState extends State<Home> {
                           SizedBox(height: 22.0),
                           ElevatedButton(
                               onPressed: () {
-                                context
-                                    .read<WeatherBloc>()
-                                    .add(GetWeather(cityController.text));
+                                context.read<WeatherBloc>().add(
+                                    GetWeather(cityController.text.trim()));
                               },
                               child: const Text("Check weather")),
                           SizedBox(height: 40),
