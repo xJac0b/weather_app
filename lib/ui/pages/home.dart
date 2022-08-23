@@ -24,42 +24,17 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar,
-      body: Center(
-        child: BlocProvider(
-          create: (context) => WeatherBloc(),
-          child: BlocBuilder<WeatherBloc, WeatherState>(
-            builder: (context, state) {
-              switch (state.runtimeType) {
-                case WeatherInitial:
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      TextField(
-                        controller: cityController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Enter a city name',
-                        ),
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
-                            context
-                                .read<WeatherBloc>()
-                                .add(GetWeather(cityController.text));
-                          },
-                          child: const Text("Check weather")),
-                      Text(state.error ?? '')
-                    ],
-                  );
-                case WeatherLoading:
-                  return const CircularProgressIndicator();
-                case WeatherLoaded:
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
+      body: BlocProvider(
+        create: (context) => WeatherBloc(),
+        child: BlocBuilder<WeatherBloc, WeatherState>(
+          builder: (context, state) {
+            switch (state.runtimeType) {
+              case WeatherInitial:
+                return Center(
+                  child: SingleChildScrollView(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        CityWeather(weather: state.weather),
-                        const SizedBox(height: 8.0),
                         TextField(
                           controller: cityController,
                           decoration: const InputDecoration(
@@ -74,15 +49,48 @@ class _HomeState extends State<Home> {
                                   .add(GetWeather(cityController.text));
                             },
                             child: const Text("Check weather")),
-                        Forecast5Days(forecast: state.forecast)
+                        Text(state.error ?? '')
                       ],
                     ),
-                  );
-                default:
-                  return const Text('default');
-              }
-            },
-          ),
+                  ),
+                );
+              case WeatherLoading:
+                return const Center(child: const CircularProgressIndicator());
+              case WeatherLoaded:
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          CityWeather(weather: state.weather),
+                          const SizedBox(height: 12.0),
+                          TextField(
+                            controller: cityController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter a city name',
+                            ),
+                          ),
+                          SizedBox(height: 22.0),
+                          ElevatedButton(
+                              onPressed: () {
+                                context
+                                    .read<WeatherBloc>()
+                                    .add(GetWeather(cityController.text));
+                              },
+                              child: const Text("Check weather")),
+                          SizedBox(height: 40),
+                          Forecast5Days(forecast: state.forecast)
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              default:
+                return const Text('default');
+            }
+          },
         ),
       ),
     );

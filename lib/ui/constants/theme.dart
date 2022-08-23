@@ -5,9 +5,12 @@ enum AppTheme { light, dark }
 
 Map<AppTheme, ThemeData> appThemeData = {
   AppTheme.light: ThemeData(
-      scaffoldBackgroundColor: Colors.blue[100],
+      fontFamily: 'Montserrat',
+      scaffoldBackgroundColor: Colors.blue[50],
       colorSchemeSeed: AppColors.seedColor,
       brightness: Brightness.light),
   AppTheme.dark: ThemeData(
-      colorSchemeSeed: AppColors.seedColor, brightness: Brightness.dark),
+      fontFamily: 'Montserrat',
+      colorSchemeSeed: AppColors.seedColor,
+      brightness: Brightness.dark),
 };

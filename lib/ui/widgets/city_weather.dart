@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/data/models/weather.dart';
 import 'package:weather_app/ui/constants/colors.dart';
 
@@ -11,21 +12,26 @@ class CityWeather extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 200.0,
-        color: Theme.of(context).brightness == Brightness.light
-            ? Color.fromARGB(11, 0, 0, 0)
-            : Colors.transparent,
-        width: double.infinity,
-        child: Center(
-            child: Column(
-          children: [
-            Text('${weather?.name} ${weather?.temp}°C\n${weather?.desc}',
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 30)),
-            Image.network(weather!.icon)
-          ],
-        )));
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+          height: 200.0,
+          color: Theme.of(context).brightness == Brightness.light
+              ? Color.fromARGB(105, 0, 63, 131)
+              : Color.fromARGB(105, 0, 63, 131),
+          width: double.infinity,
+          child: Column(
+            children: [
+              Text('${weather!.name} ${weather!.temp}°C',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 38, fontWeight: FontWeight.bold)),
+              Text('${weather!.desc}',
+                  textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+              Image.network(weather!.icon),
+            ],
+          )),
+    );
   }
 }
 
@@ -37,6 +43,7 @@ class Forecast5Days extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
         options: CarouselOptions(
+          height: 270,
           enlargeCenterPage: true,
           enableInfiniteScroll: false,
           autoPlay: false,
@@ -48,13 +55,32 @@ class Forecast5Days extends StatelessWidget {
     List<ClipRRect> widgets = [];
     for (Weather weather in list) {
       widgets.add(ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
           child: Stack(fit: StackFit.expand, children: [
             Container(
-                width: 500,
-                height: 350,
-                color: Color.fromARGB(61, 0, 0, 0),
-                child: Text('${weather.temp}'))
+                width: 100,
+                color: Color.fromARGB(105, 0, 63, 131),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('${weather.temp}°C',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 38, fontWeight: FontWeight.bold)),
+                    Text('${weather.desc}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 22)),
+                    Image.network(weather.icon),
+                    Text(
+                        // ignore: prefer_interpolation_to_compose_strings
+                        DateFormat('E, d MMMM\nH:mm')
+                            .format(DateTime.fromMillisecondsSinceEpoch(
+                                weather.dt * 1000))
+                            .toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20)),
+                  ],
+                ))
           ])));
     }
     return widgets;
