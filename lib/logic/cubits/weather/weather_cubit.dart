@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:weather_app/data/models/forecast.dart';
 import 'package:weather_app/data/models/weather.dart';
 import 'package:weather_app/data/repos/weather_repo.dart';
@@ -17,7 +16,6 @@ class WeatherCubit extends Cubit<WeatherState> {
       final Forecast forecast = await repo.get5DayForecastByCityName(city);
       emit(WeatherLoaded(weather: weather, forecast: forecast));
     } catch (e) {
-      print(e);
       emit(const WeatherInitial(error: "City not found!"));
     }
   }
