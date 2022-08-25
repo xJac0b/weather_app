@@ -1,7 +1,7 @@
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/data/models/forecast.dart';
 import 'package:weather_app/data/models/weather.dart';
 import 'package:weather_app/ui/constants/colors.dart';
 
@@ -16,9 +16,7 @@ class CityWeather extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       child: Container(
           height: 200.0,
-          color: Theme.of(context).brightness == Brightness.light
-              ? Color.fromARGB(105, 0, 63, 131)
-              : Color.fromARGB(105, 0, 63, 131),
+          color: AppColors.accent,
           width: double.infinity,
           child: Column(
             children: [
@@ -26,8 +24,9 @@ class CityWeather extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 38, fontWeight: FontWeight.bold)),
-              Text('${weather!.desc}',
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 22)),
+              Text(weather!.desc,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 22)),
               Image.network(weather!.icon),
             ],
           )),
@@ -59,7 +58,7 @@ class Forecast5Days extends StatelessWidget {
           child: Stack(fit: StackFit.expand, children: [
             Container(
                 width: 100,
-                color: Color.fromARGB(105, 0, 63, 131),
+                color: AppColors.accent,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -67,9 +66,9 @@ class Forecast5Days extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             fontSize: 38, fontWeight: FontWeight.bold)),
-                    Text('${weather.desc}',
+                    Text(weather.desc,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 22)),
+                        style: const TextStyle(fontSize: 22)),
                     Image.network(weather.icon),
                     Text(
                         // ignore: prefer_interpolation_to_compose_strings
@@ -78,7 +77,7 @@ class Forecast5Days extends StatelessWidget {
                                 weather.dt * 1000))
                             .toString(),
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 20)),
+                        style: const TextStyle(fontSize: 20)),
                   ],
                 ))
           ])));
