@@ -36,6 +36,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  flutter_launcher_icons: ^0.10.0
   flutter_native_splash: ^2.2.8
   http: ^0.13.5
   intl: ^0.17.0
@@ -45,6 +46,11 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
 
 flutter_native_splash:
   color: "#e3f2fd"
