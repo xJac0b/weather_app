@@ -1,16 +1,9 @@
 # weather_app
 
-A new Flutter project.
+Simple weather app made in flutter with bloc library state managment. For data fetching application uses [OpenWeatherMap API](https://openweathermap.org/api).
 
-## Getting Started
+##Input page:
+![image](https://user-images.githubusercontent.com/85969059/189489534-a172b47e-cf0b-482d-82b0-019fd8425338.png)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+##Weather page:
+![image](https://user-images.githubusercontent.com/85969059/189489663-83c0ec01-53fb-4181-b07e-25ad5ac68a4f.png)
